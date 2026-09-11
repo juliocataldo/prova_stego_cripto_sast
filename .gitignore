@@ -1,0 +1,38 @@
+# 🔐 SEGURANÇA — MANTER SECRETO
+# Tudo que é exclusivo do professor vive em professor/ e nunca deve ir para o Git.
+# Ignoramos a pasta inteira (em vez de arquivo por arquivo) para não vazar nada
+# por esquecimento se um novo arquivo secreto for adicionado no futuro.
+professor/
+
+# Entregas de alunos (não commitar)
+prova-*/
+prova-*.zip
+/correcao/
+
+# Arquivos gerados
+*.log
+*.tmp
+*.bak
+
+# Editor files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker stuff
+.dockerignore
+# NÃO ignorar o Dockerfile da toolbox — ele é distribuído ao aluno via git clone.
+# (o padrão genérico "Dockerfile" pegava docker/toolbox/Dockerfile por engano e
+#  travava a prova no setup, antes da Etapa 1)
+
+# Node modules
+node_modules/
+npm-debug.log
+
+# System
+Thumbs.db
+.env
+.env.local

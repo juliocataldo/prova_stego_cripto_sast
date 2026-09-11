@@ -1,0 +1,41 @@
+rules:
+  - id: eval-code-injection
+    languages: [javascript]
+    severity: ERROR
+    message: >-
+      Uso de eval() com entrada do usuario permite execucao arbitraria de
+      codigo (Code Injection / RCE). Qualquer JavaScript enviado no request e
+      executado no servidor.
+    metadata:
+      owasp: "A03:2021 - Injection"
+      cwe: "CWE-95: Eval Injection"
+    patterns:
+      - pattern: eval(...)
+
+  - id: reflected-xss-res-send
+    languages: [javascript]
+    severity: WARNING
+    message: >-
+      Entrada do usuario refletida na resposta sem sanitizacao (Reflected XSS).
+      Um payload <script> enviado pelo cliente e devolvido e executado no
+      navegador da vitima.
+    metadata:
+      owasp: "A03:2021 - Injection (XSS)"
+      cwe: "CWE-79: Cross-site Scripting"
+    patterns:
+      - pattern: res.send(`...${$X}...`)
+
+  - id: sensitive-data-in-log
+    languages: [javascript]
+    severity: WARNING
+    message: >-
+      Dado sensivel (senha/PII) gravado em log. Logs sao frequentemente menos
+      protegidos e viram fonte de vazamento de credenciais.
+    metadata:
+      owasp: "A09:2021 - Security Logging and Monitoring Failures"
+      cwe: "CWE-532: Insertion of Sensitive Information into Log File"
+    patterns:
+      - pattern: console.log(`...${$X}...`)
+      - metavariable-regex:
+          metavariable: $X
+          regex: (?i)(password|senha|email|token|secret)
